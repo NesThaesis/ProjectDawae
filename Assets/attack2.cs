@@ -13,14 +13,12 @@ public class attack2 : MonoBehaviour
     private Vector3 target;
     private Vector3 sourcePosition;
 
-    private bool isShovelOut;
     private Collider2D collider;
 
     void Start()
     {
         target = transform.position;
         sourcePosition = transform.position;
-        isShovelOut = false;
         this.collider = GetComponent<Collider2D>();
         collider.enabled = false;
     }
@@ -28,7 +26,6 @@ public class attack2 : MonoBehaviour
     void returnattack()
     {
         target = Vector3.MoveTowards(sourcePosition, target, speed * Time.deltaTime);
-        isShovelOut = false;
         collider.enabled = false;
     }
 
@@ -38,7 +35,6 @@ public class attack2 : MonoBehaviour
         {
             target = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
             collider.enabled = true;
-            isShovelOut = true;
             Invoke("returnattack", 0.5f);
 
         }
@@ -48,10 +44,10 @@ public class attack2 : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         
-        if (isShovelOut && other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
             Destroy(other.gameObject);
         }
-
+        
     }
 }
