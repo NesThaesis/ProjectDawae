@@ -10,7 +10,13 @@ public class GameControllv2 : MonoBehaviour {
     public float DMG;
     public float CurrentHP;
     public float InvulnerableTime;
+    [SerializeField]
+    private GameObject gameOverUI;
 
+    void EndGame()
+    {
+        gameOverUI.SetActive(true);
+    }
 
     void Start()
     {
@@ -32,9 +38,12 @@ public class GameControllv2 : MonoBehaviour {
         }
         if (CurrentHP <= 0)
         {
-            SceneManager.LoadScene(sceneName:"gameover");
+            //     SceneManager.LoadScene(sceneName:"gameover");
+            Invoke("EndGame",0f);
         }
     }
+
+   
 
     private IEnumerator OnCollisionEnter2D(Collision2D other)
     {

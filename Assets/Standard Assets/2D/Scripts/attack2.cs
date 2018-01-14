@@ -11,7 +11,8 @@ public class attack2 : MonoBehaviour
 
     private Vector3 target;
     private Vector3 sourcePosition;
-    private GameObject parent;
+    private Vector3 sourceTarget;
+    private Vector3 currentPosition;
     private Collider2D collider;
 
     private float Speed;
@@ -19,6 +20,7 @@ public class attack2 : MonoBehaviour
     public float AtkSpeed;
     public float ReturnSpeed;
     public float DelayBetweenAandR;
+    
 
     public int MBNumber;
     
@@ -26,12 +28,15 @@ public class attack2 : MonoBehaviour
     {
         target = transform.position;
         sourcePosition = transform.position;
+        currentPosition = transform.position;
+        sourceTarget = new Vector3(sourcePosition.x, transform.position.y, transform.position.z);
         this.collider = GetComponent<Collider2D>();
         collider.enabled = false;
     }
 
     void Atk()
     {
+        sourcePosition = currentPosition;
         target = new Vector3(transform.position.x + AtkRange, transform.position.y, transform.position.z);
         Speed = AtkSpeed;
         collider.enabled = true;
@@ -40,22 +45,28 @@ public class attack2 : MonoBehaviour
 
     void returnattack()
     {
-        target = new Vector3(transform.position.x - AtkRange, transform.position.y, transform.position.z);
+        target = sourcePosition;
         collider.enabled = false;
         Speed = ReturnSpeed;
     }
 
     void Update()
     {
-        sourcePosition = transform.position;
-        if (Input.GetMouseButtonDown(MBNumber))
+        currentPosition = transform.position;
+        if (currentPosition.x == sourcePosition.x)
         {
-            Invoke("Atk", 0f);
+            if (Input.GetMouseButtonDown(MBNumber))
+            {
+                Invoke("Atk", 0f);
+            }
         }
-        if (target != sourcePosition)
+        if (currentPosition.x != target.x)
         {
             transform.position = Vector3.MoveTowards(transform.position, target, Speed * Time.deltaTime);
+            Debug.Log("Target:" + target);
+            Debug.Log("source:" + sourcePosition);
         }
+               
     }
     
     void OnCollisionEnter2D(Collision2D other)
