@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GameControllv2 : MonoBehaviour {
- Collider2D m_Collider;
- 
+public class GameControllv2 : MonoBehaviour
+{
     public float MaxHP;
     public float DMG;
     public float CurrentHP;
-    public float InvulnerableTime;
+    public float CoinScore;
+    public float Score;
+  
     [SerializeField]
     private GameObject gameOverUI;
 
@@ -21,47 +23,28 @@ public class GameControllv2 : MonoBehaviour {
     void Start()
     {
         CurrentHP = MaxHP;
-        //Fetch the GameObject's Collider (make sure it has a Collider component)
-        m_Collider = GetComponent<Collider2D>();
-        m_Collider.enabled = m_Collider.enabled;
+        Score = 0;
+        CoinScore = 0;
     }
 
     void Update()
     {
+
         if (Input.GetKeyDown("k"))
         {
             CurrentHP = 0;
         }
+
         if (Input.GetKeyDown("r"))
+
         {
             SceneManager.LoadScene(sceneName: "testscene");
         }
+
         if (CurrentHP <= 0)
         {
             //     SceneManager.LoadScene(sceneName:"gameover");
-            Invoke("EndGame",0f);
+            Invoke("EndGame", 0f);
         }
     }
-
-   
-
-    private IEnumerator OnCollisionEnter2D(Collision2D other)
-    {
-
-        Debug.Log("VanHitbox? " + m_Collider.enabled);
-        if (other.gameObject.tag == "Enemy")
-        {
-            //Toggle the Collider on and off when pressing the space bar
-            m_Collider.enabled = !m_Collider.enabled;
-            //Destroy(GetComponent<Transform>().GetChild(0).gameObject);
-            Destroy(GameObject.Find("hp"+CurrentHP));
-            CurrentHP--;
-            yield return new WaitForSeconds(InvulnerableTime);
-            m_Collider.enabled = true;
-            //Output to console whether the Collider is on or not
-            Debug.Log("VanHitbox?" + m_Collider.enabled);
-        }
-
-    }
-
 }

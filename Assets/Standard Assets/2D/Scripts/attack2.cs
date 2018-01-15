@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class attack2 : MonoBehaviour
 {
     //public float scrollSpeed;
@@ -20,12 +22,14 @@ public class attack2 : MonoBehaviour
     public float AtkSpeed;
     public float ReturnSpeed;
     public float DelayBetweenAandR;
+    public float MonstersScore=50;
     
 
     public int MBNumber;
     
     void Start()
     {
+
         target = transform.position;
         sourcePosition = transform.position;
         currentPosition = transform.position;
@@ -55,8 +59,9 @@ public class attack2 : MonoBehaviour
         currentPosition = transform.position;
         if (currentPosition.x == sourcePosition.x)
         {
-            if (Input.GetMouseButtonDown(MBNumber))
+            if (Input.GetMouseButtonDown(MBNumber) && GameObject.Find("Knight").GetComponent<MyCharacterControl>().onGround)
             {
+                Debug.Log("OnGround?:" + GameObject.Find("Knight").GetComponent<MyCharacterControl>().onGround);
                 Invoke("Atk", 0f);
             }
         }
@@ -69,12 +74,13 @@ public class attack2 : MonoBehaviour
                
     }
     
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         
         if (other.gameObject.tag == "Enemy")
         {
             Destroy(other.gameObject);
+            GameObject.Find("GameController").GetComponent<GameControllv2>().Score += 50;
         }
         
     }

@@ -8,7 +8,7 @@ public class MyCharacterControl : MonoBehaviour {
     public Transform startPosition;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
-    private bool onGround;
+    public bool onGround;
     public float JumpHeight;
     private Collider2D collider;
     private bool isVulnerable;
@@ -24,8 +24,6 @@ public class MyCharacterControl : MonoBehaviour {
     // Update is called once per frame
 	void Update () {
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-            
-
         if (Input.GetMouseButtonDown(0) && onGround )
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpHeight);
