@@ -12,7 +12,7 @@ public class CollectibleScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Speed = Random.Range(5, 10);
+        
         target = GameObject.Find("TargetPoint_Collectible").transform.position;
        
     }

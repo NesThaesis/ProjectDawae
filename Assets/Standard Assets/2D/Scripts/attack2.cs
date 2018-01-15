@@ -23,13 +23,15 @@ public class attack2 : MonoBehaviour
     public float ReturnSpeed;
     public float DelayBetweenAandR;
     public float MonstersScore=50;
-    
+    public AudioSource ShovelHit;
+    public AudioSource SwordSlash;
 
     public int MBNumber;
     
     void Start()
     {
-
+        SwordSlash = GetComponent<AudioSource>();
+        ShovelHit = GameObject.Find("ShovelHit").GetComponent<AudioSource>();
         target = transform.position;
         sourcePosition = transform.position;
         currentPosition = transform.position;
@@ -40,6 +42,7 @@ public class attack2 : MonoBehaviour
 
     void Atk()
     {
+        SwordSlash.Play();
         sourcePosition = currentPosition;
         target = new Vector3(transform.position.x + AtkRange, transform.position.y, transform.position.z);
         Speed = AtkSpeed;
@@ -81,6 +84,8 @@ public class attack2 : MonoBehaviour
         {
             Destroy(other.gameObject);
             GameObject.Find("GameController").GetComponent<GameControllv2>().Score += 50;
+            
+            ShovelHit.Play();
         }
         
     }

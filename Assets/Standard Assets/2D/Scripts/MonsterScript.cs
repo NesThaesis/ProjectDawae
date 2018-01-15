@@ -12,7 +12,7 @@ public class MonsterScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Speed = Random.Range(5, 10);
+        
         // rb = GetComponent<Rigidbody2D>();
         target = GameObject.Find("TargetPoint").transform.position;
         // target = new Vector3(transform.position.x, transform.position.y, transform.position.z);

@@ -16,7 +16,9 @@ public class Spawner : MonoBehaviour {
     void Start () {
         MonsterNumber = 1;
         CoinNumber = 1;
-	}
+        spawnpoint = GameObject.Find("SpawnPoint").transform;
+        spawnpoint2 = GameObject.Find("SpawnPoint_Collectible").transform;
+    }
 
     void SpawnMonster()
     {
@@ -24,8 +26,6 @@ public class Spawner : MonoBehaviour {
         if (MonsterNumber < 2)
         {
             //Debug.Log("MNumber2:" + MonsterNumber);
-
-            spawnpoint = GameObject.Find("SpawnPoint").transform;
             Instantiate(Monster, spawnpoint);
             MonsterNumber++;
         }
@@ -37,8 +37,6 @@ public class Spawner : MonoBehaviour {
         if (CoinNumber < 2)
         {
             //Debug.Log("MNumber2:" + MonsterNumber);
-
-            spawnpoint2 = GameObject.Find("SpawnPoint_Collectible").transform;
             Instantiate(Collectible, spawnpoint2);
             CoinNumber++;
         }

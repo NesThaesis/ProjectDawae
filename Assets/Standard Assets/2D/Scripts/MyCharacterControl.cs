@@ -12,6 +12,7 @@ public class MyCharacterControl : MonoBehaviour {
     public float JumpHeight;
     private Collider2D collider;
     private bool isVulnerable;
+    private AudioSource JumpSound;
 
     // Use this for initialization
     void Start () {
@@ -19,6 +20,7 @@ public class MyCharacterControl : MonoBehaviour {
         this.collider = GetComponent<Collider2D>();
         collider.enabled = true;
         isVulnerable = true;
+        JumpSound = GetComponent<AudioSource>();
     }
 	    
     // Update is called once per frame
@@ -26,19 +28,9 @@ public class MyCharacterControl : MonoBehaviour {
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         if (Input.GetMouseButtonDown(0) && onGround )
         {
+            JumpSound.Play();
             rb.velocity = new Vector2(rb.velocity.x, JumpHeight);
         }
 		
 	}
-
-    //void OnCollisionEnter2D(Collision2D other)
-    //{
-    //    Debug.Log("collision");
-    //    if (this.isVulnerable && other.gameObject.tag == "Enemy")
-    //   {
-    //        this.isVulnerable = false;
-    //        Debug.Log("HIT!!!!");
-    //    }
-
-    //}
 }
