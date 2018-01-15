@@ -21,7 +21,7 @@ public class CollectibleScript : MonoBehaviour
     {
         enabled = false;
         Destroy(gameObject);
-        GameObject.Find("SpawnPoint_Collectible").GetComponent<Spawner>().MonsterNumber -= 1;
+        GameObject.Find("Spawner").GetComponent<Spawner>().CoinNumber -= 1;
     }
 
     // Update is called once per frame

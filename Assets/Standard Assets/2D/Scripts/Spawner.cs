@@ -14,8 +14,8 @@ public class Spawner : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        MonsterNumber = 0;
-        CoinNumber = 0;
+        MonsterNumber = 1;
+        CoinNumber = 1;
 	}
 
     void SpawnMonster()
