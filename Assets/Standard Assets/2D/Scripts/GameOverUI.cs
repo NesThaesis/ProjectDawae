@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameOverUI : MonoBehaviour {
 
-    public void Quit()
+    public void Menu()
     {
-        Application.Quit();
+        SceneManager.LoadScene(sceneName: "menu");
     }
     public void Retry()
     {

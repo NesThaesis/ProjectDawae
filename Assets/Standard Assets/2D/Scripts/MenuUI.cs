@@ -11,7 +11,8 @@ public class MenuUI : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Start()
+
+    public void StartGame()
     {
         SceneManager.LoadScene(sceneName: "testscene");
     }
