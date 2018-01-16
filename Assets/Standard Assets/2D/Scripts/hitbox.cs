@@ -6,12 +6,11 @@ public class hitbox : MonoBehaviour
 {
     Collider2D m_Collider;
     public float InvulnerableTime;
-    private AudioSource gethitsound;
+    public AudioSource gethitsound;
 
     // Use this for initialization
     void Start()
     {
-        gethitsound = GetComponent<AudioSource>();
         //Fetch the GameObject's Collider (make sure it has a Collider component)
         m_Collider = GetComponent<Collider2D>();
         m_Collider.enabled = m_Collider.enabled;

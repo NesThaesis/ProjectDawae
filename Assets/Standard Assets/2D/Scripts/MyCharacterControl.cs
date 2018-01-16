@@ -5,32 +5,39 @@ using UnityEngine;
 public class MyCharacterControl : MonoBehaviour {
     public Rigidbody2D rb;
     public Transform groundCheck;
-    public Transform startPosition;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
+    private bool isVulnerable;
     public bool onGround;
     public float JumpHeight;
-    private Collider2D collider;
-    private bool isVulnerable;
-    private AudioSource JumpSound;
+    public AudioSource JumpSound;
+    public float Attack;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         rb = GetComponent<Rigidbody2D>();
-        this.collider = GetComponent<Collider2D>();
-        collider.enabled = true;
         isVulnerable = true;
-        JumpSound = GetComponent<AudioSource>();
     }
-	    
-    // Update is called once per frame
-	void Update () {
-        onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-        if (Input.GetMouseButtonDown(0) && onGround )
+	  
+    void Jump ()
+    {
+        if (onGround)
         {
             JumpSound.Play();
             rb.velocity = new Vector2(rb.velocity.x, JumpHeight);
         }
-		
-	}
+    }
+    
+
+    // Update is called once per frame
+    void Update () {
+        onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        if (Input.GetMouseButtonDown(1))
+        {
+
+            GetComponent<MyCharacterControl>().Jump();
+        }
+              
+    }
 }
