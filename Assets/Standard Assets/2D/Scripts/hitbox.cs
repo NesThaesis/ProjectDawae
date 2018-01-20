@@ -4,42 +4,61 @@ using UnityEngine;
 
 public class hitbox : MonoBehaviour
 {
-    Collider2D m_Collider;
+    Collider2D Hitbox;
     public float InvulnerableTime;
     public AudioSource gethitsound;
+    public AudioSource CoinPickUp;
+    public float LastHitTime;
+    public float HitTime;
 
     // Use this for initialization
+    private void Awake()
+    {
+        gethitsound = GameObject.Find("GetHit").GetComponent<AudioSource>();
+        CoinPickUp = GameObject.Find("GetCoin").GetComponent<AudioSource>();
+    }
+
     void Start()
     {
-        //Fetch the GameObject's Collider (make sure it has a Collider component)
-        m_Collider = GetComponent<Collider2D>();
-        m_Collider.enabled = m_Collider.enabled;
+       Hitbox = GetComponent<Collider2D>();
+       LastHitTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
+        
     }
-
-    void colliderbackon()
+    
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        m_Collider.enabled = true;
-        Debug.Log("VanHitbox?" + m_Collider.enabled); //Output to console whether the Collider is on or not
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("VanHitbox? " + m_Collider.enabled);
-        if (other.gameObject.tag == "Enemy" && m_Collider.enabled == true)
+        if (GameObject.Find("Knight").GetComponent<MyCharacterControl>().Rushattacking == false)
         {
-            gethitsound.Play();
-            m_Collider.enabled = false; //Toggle the Collider on and off when pressing the space bar
-            Destroy(GameObject.Find("hp" + GameObject.Find("GameController").GetComponent<GameControllv2>().CurrentHP)); //Destroy(GetComponent<Transform>().GetChild(0).gameObject);
-            GameObject.Find("GameController").GetComponent<GameControllv2>().CurrentHP--;
-
-            Invoke("colliderbackon", InvulnerableTime);
-           
+            HitTime = Time.time;
+            Debug.Log("VanHitbox? " + Hitbox.enabled);
+            if (other.gameObject.tag == "Enemy" && HitTime - LastHitTime > InvulnerableTime)
+            {
+                LastHitTime = Time.time;
+                gethitsound.Play();
+                GameObject.Find("GameController").GetComponent<GameControllv2>().HPDown();
+            }
         }
+        else
+        {
+            if (GetComponentInParent<MyCharacterControl>().Rushattacking == true && other.gameObject.tag == "Enemy")
+            {
+                other.gameObject.GetComponent<MonsterScript>().IsHit = true;
+                Rigidbody2D rbOther = other.GetComponent<Rigidbody2D>();
+                rbOther.velocity = new Vector2(50, 10);
+            }
+        }
+        if (other.gameObject.tag == "Collectible")
+        {
+            CoinPickUp.Play();
+            GameObject.Find("GameController").GetComponent<GameControllv2>().CoinScore++;
+            other.gameObject.GetComponent<Renderer>().enabled = false;
+        }
+
     }
 }

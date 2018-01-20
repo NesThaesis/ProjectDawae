@@ -4,46 +4,71 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+
 public class GameControllv2 : MonoBehaviour
 {
+    public GameObject Player1;
+    public Transform SpawnPoint_Player1;
     public float MaxHP;
     public float DMG;
-
-
     public float CurrentHP;
     public float CoinScore;
     public float Score;
-    public float CurrentVolume;
 
+    public float FxdDltTm;
+
+
+    public float CurrentVolume;
     public AudioSource BGMusic;
-    public float MasterVolume;
+    public Slider MasterVolume;
     public AudioListener MV;
     
-
     public float Pause;
-
-
-
+    
     void EndGame()
     {
         Pause = 0;
         GameObject.Find("UIOverlay").GetComponent<MenuesUI>().GameOver();
     }
 
+    private void Awake()
+    {
+   
+    }
+
     void Start()
     {
+        RespawnPlayer1();
         Pause = 1;
         CurrentHP = MaxHP;
         Score = 0;
         CoinScore = 0;
-        MasterVolume = GameObject.Find("VolumeSlider").GetComponent<Slider>().value;
-        AudioListener.volume = MasterVolume;
+        AudioListener.volume = MasterVolume.value;
+    }
+
+    public void HPDown()
+    {
+        GameObject.Find("hp" + CurrentHP).SetActive(false);
+        CurrentHP--;
+    }
+
+    public void HPUp()
+    {
+       CurrentHP++;
+       GameObject.Find("hp" + CurrentHP).SetActive(true);
+    }
+    
+    public void RespawnPlayer1()
+    {
+       GameObject Knight = Instantiate(Player1, SpawnPoint_Player1);
+        Knight.name = "Knight";
     }
 
     public void VolumeControll()
     {
-        MasterVolume = GameObject.Find("VolumeSlider").GetComponent<Slider>().value;
-        AudioListener.volume = MasterVolume;
+        MasterVolume = GameObject.Find("VolumeSlider").GetComponent<Slider>();
+        AudioListener.volume = MasterVolume.value;
         CurrentVolume = AudioListener.volume;
     }
 
@@ -58,6 +83,8 @@ public class GameControllv2 : MonoBehaviour
     {
 
         Time.timeScale = Pause;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
         if (Input.GetKeyDown("k"))
         {
             CurrentHP = 0;

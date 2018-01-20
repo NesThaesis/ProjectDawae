@@ -111,7 +111,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.5, y: 1.5}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1.5, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -159,7 +159,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -365,6 +365,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1581e6fa153fb714b97247fdbfa8e994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHP: 0
+  DMG: 0
+  CurrentHP: 0
+  CoinScore: 0
+  Score: 0
+  CurrentVolume: 0
+  BGMusic: {fileID: 0}
+  MasterVolume: 0
+  MV: {fileID: 0}
+  Pause: 0
 --- !u!114 &114216189075561198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -378,12 +388,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 50821382986444942}
   groundCheck: {fileID: 400000}
-  startPosition: {fileID: 0}
   groundCheckRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  onGround: 0
   JumpHeight: 10
+  DownSpeed: 0
+  JumpSound: {fileID: 0}
+  Attack: 0
 --- !u!114 &114496653087426066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,7 +408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f828527f326686b408e4167051b8bae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
 --- !u!114 &114808211486314746
 MonoBehaviour:
   m_ObjectHideFlags: 1

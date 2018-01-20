@@ -10,7 +10,6 @@ public class Htbx_collectible : MonoBehaviour {
     {
         //Fetch the GameObject's Collider (make sure it has a Collider component)
         c_Collider = GetComponent<Collider2D>();
-        CoinPickUp = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

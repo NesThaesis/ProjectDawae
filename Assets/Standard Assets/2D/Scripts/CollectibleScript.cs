@@ -19,10 +19,11 @@ public class CollectibleScript : MonoBehaviour
 
     void OnBecameInvisible()
     {
+        GameObject.Find("Spawner").GetComponent<Spawner>().CoinNumber--;
         enabled = false;
         Destroy(gameObject);
-        GameObject.Find("Spawner").GetComponent<Spawner>().CoinNumber -= 1;
     }
+    
 
     // Update is called once per frame
     void Update()
