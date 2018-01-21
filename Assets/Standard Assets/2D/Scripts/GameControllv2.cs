@@ -15,7 +15,7 @@ public class GameControllv2 : MonoBehaviour
     public float CurrentHP;
     public float CoinScore;
     public float Score;
-
+    public Slider timeSlider;
     public float FxdDltTm;
 
 
@@ -34,7 +34,7 @@ public class GameControllv2 : MonoBehaviour
 
     private void Awake()
     {
-   
+        timeSlider = GameObject.Find("TimeControll").GetComponent<Slider>();
     }
 
     void Start()
@@ -81,7 +81,6 @@ public class GameControllv2 : MonoBehaviour
 
     void Update()
     {
-
         Time.timeScale = Pause;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 

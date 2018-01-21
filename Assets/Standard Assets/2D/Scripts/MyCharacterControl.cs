@@ -91,17 +91,18 @@ public class MyCharacterControl : MonoBehaviour
             Debug.Log("pressed A");
             if (Time.time-AttackStartTime > 1)
             {
-                GameObject.Find("ShovelHit").GetComponent<SvlHB>().ShovelCollider.enabled = true;
                 attacking = true;
+                GameObject.Find("ShovelHit").GetComponent<SvlHB>().ShovelCollider.enabled = true;
                 SwordSlash.Play();
                 AttackStartTime = Time.time;
                 yield return new WaitForSeconds(0.5f);
                 GameObject.Find("ShovelHit").GetComponent<SvlHB>().ShovelCollider.enabled = false;
+                attacking = false;
             }
         }
     }
 
-    public IEnumerator Attack2()
+  /*  public IEnumerator Attack2()
     {
         if (Sliding == false)
         {
@@ -114,7 +115,7 @@ public class MyCharacterControl : MonoBehaviour
             
 
         }
-    }
+    }*/
     public void returnattack()
     {
         GameObject.Find("ShovelHit").GetComponent<SvlHB>().ShovelCollider.enabled = false;
